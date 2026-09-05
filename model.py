@@ -94,7 +94,8 @@ def mse_gradient(X, y_true, y_pred):
 # Step 10 - normal_equation
 def normal_equation(X, y):
     # TODO: Solve for the closed-form least-squares weights via the normal equation.
-    return np.linalg.solve(X.T@X, X.T@y)
+    #return np.linalg.solve(X.T@X, X.T@y)
+    return np.linalg.pinv (X.T@X)@X.T@y
 
 # Step 11 - initialize_weights
 def initialize_weights(n_features, seed=None):
@@ -267,10 +268,18 @@ def create_lr_model(learning_rate=0.01, epochs=1000, patience=50, seed=0):
 # Step 25 - fit_lr_model
 def fit_lr_model(model, X_train, y_train, X_val, y_val):
     # TODO: Fit model with train stats, design matrices, GD, and normal eq
-    best_weights, train_losses, val_losses = train_batch_gd(X_train, y_train, X_val, y_val, model['learning_rate'], model['epochs'], model['patience'], model['seed'])
+    mean, std = compute_feature_stats(X_train)
+    model['mean'] = mean
+    model['std'] = std
+    X_new = standardize_features(X_train, model['mean'], model['std'])
+    X_new = add_bias_column(X_new)
+    X_new_val = standardize_features(X_val, model['mean'], model['std'])
+    X_new_val = add_bias_column(X_new_val)
+    best_weights, train_losses, val_losses = train_batch_gd(X_new, y_train, X_new_val, y_val, model['learning_rate'], model['epochs'], model['patience'], model['seed'])
     model['weights'] = best_weights
     model['train_losses'] = train_losses
     model['val_losses'] = val_losses
+    model['normal_weights'] =normal_equation(X_new, y_train)
     return model
 
 # Step 26 - predict_lr_model
