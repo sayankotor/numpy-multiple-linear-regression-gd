@@ -117,8 +117,10 @@ def normal_equation(X, y):
 # Step 17 - train_batch_gd (not yet solved)
 # TODO: implement
 
-# Step 18 - mean_absolute_error (not yet solved)
-# TODO: implement
+# Step 18 - mean_absolute_error
+def mean_absolute_error(y_true, y_pred):
+    # TODO: Compute the mean absolute error between true targets and predictions
+    return np.mean(np.abs(y_true - y_pred))
 
 # Step 19 - root_mean_squared_error (not yet solved)
 # TODO: implement
