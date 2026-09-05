@@ -220,13 +220,18 @@ def root_mean_squared_error(y_true, y_pred):
     return np.sqrt(np.mean((y_true - y_pred)**2))
 
 # Step 20 - r_squared
+import numpy as np
+
 def r_squared(y_true, y_pred):
     # TODO: Compute the coefficient of determination R^2.
-    RSS = np.sum((y_true - y_pred)**2)/len(y_true)
-    TSS = np.sum((y_true - np.mean(y_true))**2)/len(y_true)
-    if (TSS == 0):
+    RSS = np.sum((y_true - y_pred)**2)
+    TSS = np.sum((y_true - np.mean(y_true))**2)
+    
+    # Если изменчивости нет (TSS == 0), тесты требуют вернуть NaN
+    if TSS == 0:
         return np.nan
-    return 1 - RSS/TSS
+        
+    return 1 - RSS / TSS
 
 # Step 21 - evaluate_regression
 def evaluate_regression(y_true, y_pred):
@@ -290,8 +295,12 @@ def predict_lr_model(model, X):
     X_new = add_bias_column(X_new)
     return X_new @ model['weights']
 
-# Step 27 - score_lr_model (not yet solved)
-# TODO: implement
+# Step 27 - score_lr_model
+import numpy as np
+def score_lr_model(model, X, y):
+    # TODO: Predict on raw features and return MAE, RMSE, and R^2 metrics.
+    y_pred = predict_lr_model(model, X)
+    return evaluate_regression(y_pred, y)
 
 # Step 28 - compare_with_normal_equation (not yet solved)
 # TODO: implement
