@@ -42,8 +42,12 @@ def split_train_val_test(X, y, train_frac=0.6, val_frac=0.2):
     y_train, y_val,y_test, = y_shuffled[:int(common_len*train_frac)],y_shuffled[int(common_len*train_frac):int(common_len*(train_frac)) + int(common_len*val_frac)], y_shuffled[int(common_len*(train_frac)) + int(common_len*val_frac):]
     return (X_train, y_train, X_val, y_val, X_test, y_test)
 
-# Step 3 - compute_feature_stats (not yet solved)
-# TODO: implement
+# Step 3 - compute_feature_stats
+def compute_feature_stats(X):
+    # TODO: Compute per-feature mean and std; replace std of 0 with 1
+    stds = np.std(X, axis = 0)
+    stds = np.where(stds ==0.0, 1.0, stds)
+    return np.mean(X, axis = 0), stds
 
 # Step 4 - standardize_features (not yet solved)
 # TODO: implement
