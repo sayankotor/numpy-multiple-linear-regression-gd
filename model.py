@@ -118,8 +118,8 @@ def gd_step(X, y, weights, lr):
     # TODO: return the updated weight vector after one MSE gradient step
     y_pred = predict_linear(X, weights)
     dw = mse_gradient(X, y, y_pred)
-    new_weights = weights - lr*dw
-    return new_weights
+    weights = weights - lr*dw
+    return weights
 
 # Step 13 - epoch_train_val_losses
 def epoch_train_val_losses(X_train, y_train, X_val, y_val, weights):
@@ -184,7 +184,6 @@ def run_one_epoch(state, X_train, y_train, X_val, y_val, lr, patience):
         Updated state dict.
     """
     # TODO: Take one GD step, log train/val losses, refresh early-stopping fields...
-    print (state['weights'])
     new_weights = gd_step(X_train, y_train, state['weights'], lr)
     state['weights'] = new_weights
     train_loss, val_loss = epoch_train_val_losses(X_train, y_train, X_val, y_val, new_weights)
