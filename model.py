@@ -232,8 +232,15 @@ def evaluate_regression(y_true, y_pred):
     # TODO: Bundle MAE, RMSE, and R^2 into one metrics dictionary for test-set reporting.
     return {'mae':mean_absolute_error(y_true, y_pred), 'rmse':root_mean_squared_error(y_true, y_pred), 'r2':r_squared(y_true, y_pred)}
 
-# Step 22 - learning_curve_data (not yet solved)
-# TODO: implement
+# Step 22 - learning_curve_data
+def learning_curve_data(train_losses, val_losses):
+    # TODO: Return epoch indices and loss series for external plotting...
+    epoch_indices = np.arange(len(train_losses)) + 1
+    if isinstance(train_losses, np.ndarray):
+        train_losses = train_losses.tolist()
+    if isinstance(val_losses, np.ndarray):
+        val_losses = val_losses.tolist()
+    return epoch_indices.tolist(),train_losses, val_losses
 
 # Step 23 - weights_l2_distance (not yet solved)
 # TODO: implement
