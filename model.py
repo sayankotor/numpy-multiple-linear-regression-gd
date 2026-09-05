@@ -300,7 +300,7 @@ import numpy as np
 def score_lr_model(model, X, y):
     # TODO: Predict on raw features and return MAE, RMSE, and R^2 metrics.
     y_pred = predict_lr_model(model, X)
-    return evaluate_regression(y_pred, y)
+    return evaluate_regression(y, y_pred)
 
 # Step 28 - compare_with_normal_equation (not yet solved)
 # TODO: implement
