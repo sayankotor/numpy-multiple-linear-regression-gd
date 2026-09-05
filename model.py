@@ -118,8 +118,8 @@ def gd_step(X, y, weights, lr):
     # TODO: return the updated weight vector after one MSE gradient step
     y_pred = predict_linear(X, weights)
     dw = mse_gradient(X, y, y_pred)
-    weights = weights - lr*dw
-    return weights
+    new_weights = weights - lr*dw
+    return new_weights
 
 # Step 13 - epoch_train_val_losses
 def epoch_train_val_losses(X_train, y_train, X_val, y_val, weights):
