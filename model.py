@@ -264,11 +264,22 @@ def create_lr_model(learning_rate=0.01, epochs=1000, patience=50, seed=0):
     }
     return model_state
 
-# Step 25 - fit_lr_model (not yet solved)
-# TODO: implement
+# Step 25 - fit_lr_model
+def fit_lr_model(model, X_train, y_train, X_val, y_val):
+    # TODO: Fit model with train stats, design matrices, GD, and normal eq
+    best_weights, train_losses, val_losses = train_batch_gd(X_train, y_train, X_val, y_val, model['learning_rate'], model['epochs'], model['patience'], model['seed'])
+    model['weights'] = best_weights
+    model['train_losses'] = train_losses
+    model['val_losses'] = val_losses
+    return model
 
-# Step 26 - predict_lr_model (not yet solved)
-# TODO: implement
+# Step 26 - predict_lr_model
+def predict_lr_model(model, X):
+    # TODO: Return predicted targets for raw X using the fitted model.
+    mean, std = compute_feature_stats(X)
+    X_new = standardize_features(X, model['mean'], model['std'])
+    X_new = add_bias_column(X_new)
+    return X_new @ model['weights']
 
 # Step 27 - score_lr_model (not yet solved)
 # TODO: implement
